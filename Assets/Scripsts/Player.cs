@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
   private Rigidbody2D rigidbody;
+  private Animator animator;
 
   [SerializeField]
   private float movementSpeed;
@@ -11,8 +12,10 @@ public class Player : MonoBehaviour {
   private bool facingRight;
 
   void Start() {
-    facingRight = true;
     rigidbody = GetComponent<Rigidbody2D>();
+    animator = GetComponent<Animator>();
+
+    facingRight = true;
   }
 
   void FixedUpdate() {
@@ -24,6 +27,7 @@ public class Player : MonoBehaviour {
 
   private void HandleMovement(float horizontal) {
     rigidbody.velocity = new Vector2(horizontal * movementSpeed, rigidbody.velocity.y);
+    animator.SetFloat("speed", Mathf.Abs(horizontal));
   }
 
   private void Flip(float horizontal) {
